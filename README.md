@@ -92,3 +92,7 @@ cd gnn-challenge
 ``` bash
 pip install -r requirements.txt
 ```
+### Submission Workflow
+* Fork the repo and add your submission CSV under submissions/
+* Create a pull request
+* GitHub Actions will automatically run scoring_script.py to evaluate your submission and update the leaderboard
