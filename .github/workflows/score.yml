@@ -1,6 +1,49 @@
+# name: Score Submission
+
+# # Trigger on pull request changes in submissions folder
+# on:
+#   pull_request:
+#     paths:
+#       - 'submissions/*.csv'
+
+# jobs:
+#   score:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     # 1. Checkout the repo
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
+
+#     # 2. Setup Python
+#     - name: Set up Python
+#       uses: actions/setup-python@v4
+#       with:
+#         python-version: '3.10'
+
+#     # 3. Install dependencies
+#     - name: Install dependencies
+#       run: |
+#         pip install --upgrade pip
+#         pip install -r requirements.txt
+
+#     # 4. Identify the submission file
+#     - name: Identify submission CSV
+#       run: |
+#         echo "PR_SUBMISSION=$(basename $GITHUB_EVENT_PATH)" >> $GITHUB_ENV
+
+#     # 5. Run scoring
+#     - name: Run scoring script
+#       run: |
+#         python scoring_script.py submissions/$PR_SUBMISSION
+
+#     # 6. Update leaderboard (optional)
+#     - name: Update leaderboard
+#       run: |
+#         python update_leaderboard.py
+
 name: Score Submission
 
-# Trigger on pull request changes in submissions folder
 on:
   pull_request:
     paths:
@@ -9,35 +52,24 @@ on:
 jobs:
   score:
     runs-on: ubuntu-latest
-
     steps:
-    # 1. Checkout the repo
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # 2. Setup Python
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
 
-    # 3. Install dependencies
-    - name: Install dependencies
-      run: |
-        pip install --upgrade pip
-        pip install -r starter_code/requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-    # 4. Identify the submission file
-    - name: Identify submission CSV
-      run: |
-        echo "PR_SUBMISSION=$(basename $GITHUB_EVENT_PATH)" >> $GITHUB_ENV
+      - name: Run scoring
+        run: |
+          python evaluate.py  # should output accuracy and f1 as env vars
 
-    # 5. Run scoring
-    - name: Run scoring script
-      run: |
-        python scoring_script.py submissions/$PR_SUBMISSION
-
-    # 6. Update leaderboard (optional)
-    - name: Update leaderboard
-      run: |
-        python update_leaderboard.py
+      - name: Update leaderboard
+        run: |
+          python update_leaderboard.py

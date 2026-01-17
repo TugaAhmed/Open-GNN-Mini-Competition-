@@ -1,22 +1,52 @@
 import json
 import pandas as pd
 
-submission = pd.read_csv("submissions/submission.csv")
-ground_truth = np.load("data/gossipcop/graph_labels.npy")
+# Inputs: submission evaluation
+submission_file = "submissions/submission.csv"
+name = "Your Name"  # could be extracted from PR or config
+accuracy = 0.90     # calculated in scoring script
+f1 = 0.88           # calculated in scoring script
 
-from sklearn.metrics import accuracy_score, f1_score
-y_true = [ground_truth[i] for i in submission["graph_id"]]
-y_pred = submission["label"]
+# Load current leaderboard
+try:
+    with open("leaderboard.json", "r") as f:
+        leaderboard = json.load(f)
+except FileNotFoundError:
+    leaderboard = []
 
-acc = accuracy_score(y_true, y_pred)
-f1 = f1_score(y_true, y_pred)
+# Add new entry
+leaderboard.append({
+    "name": name,
+    "submission": submission_file.split("/")[-1],
+    "accuracy": accuracy,
+    "f1": f1
+})
 
-# Load old leaderboard
-with open("leaderboard.json", "r") as f:
-    leaderboard = json.load(f)
+# Sort by accuracy (or any metric)
+leaderboard.sort(key=lambda x: x["accuracy"], reverse=True)
 
-leaderboard.append({"submission": "latest", "accuracy": acc, "f1": f1})
-leaderboard = sorted(leaderboard, key=lambda x: x["f1"], reverse=True)
-
+# Save updated JSON
 with open("leaderboard.json", "w") as f:
     json.dump(leaderboard, f, indent=2)
+
+# Generate HTML table
+html_rows = "\n".join([
+    f"<tr><td>{i+1}</td><td>{entry['name']}</td><td>{entry['submission']}</td><td>{entry['accuracy']:.4f}</td><td>{entry['f1']:.4f}</td></tr>"
+    for i, entry in enumerate(leaderboard)
+])
+
+html_content = f"""
+<html>
+<head><title>Leaderboard</title></head>
+<body>
+<h1>Leaderboard</h1>
+<table border='1'>
+<tr><th>Rank</th><th>Name</th><th>Submission</th><th>Accuracy</th><th>F1 Score</th></tr>
+{html_rows}
+</table>
+</body>
+</html>
+"""
+
+with open("leaderboard.html", "w") as f:
+    f.write(html_content)

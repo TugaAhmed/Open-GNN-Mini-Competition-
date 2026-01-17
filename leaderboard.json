@@ -1,0 +1,4 @@
+[
+  {"name": "Tuga", "submission": "submission1.csv", "accuracy": 0.85, "f1": 0.83},
+  {"name": "Alice", "submission": "submission2.csv", "accuracy": 0.88, "f1": 0.86}
+]
