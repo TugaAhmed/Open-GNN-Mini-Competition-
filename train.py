@@ -1,6 +1,7 @@
 import torch
 from dataloader import GraphDataset
 from model import GNN
+from sklearn.metrics import accuracy_score, f1_score
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -15,7 +16,6 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=0.01)
 loss_fnc = torch.nn.BCELoss()
 
 def metrics(preds, gts):
-    from sklearn.metrics import accuracy_score, f1_score
     preds = torch.round(torch.cat(preds))
     gts = torch.cat(gts)
     return accuracy_score(preds, gts), f1_score(preds, gts)
