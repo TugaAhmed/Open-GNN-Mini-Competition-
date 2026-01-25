@@ -2,7 +2,7 @@
 # GNN-based Fake News Detection Challenge
 
 Welcome to the **GNN-based Fake News Detection Challenge**! This competition focuses on detecting fake news propagation on Twitter using Graph Neural Networks (GNNs). The task is based on the **User Preference-aware Fake News Detection (UPFD)** framework.
-**[🏆 View Live Leaderboard](https://github.com/TugaAhmed/Open-GNN-Mini-Competition-/leaderboard.html)**
+**[Live Leaderboard](https://tugaahmed.github.io/Open-GNN-Mini-Competition-/leaderboard.html)**
 
 Participants are asked to improve the baseline GNN model by including **user profile features** in addition to existing text embeddings.
 
