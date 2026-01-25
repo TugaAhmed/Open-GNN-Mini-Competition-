@@ -2,6 +2,7 @@
 # GNN-based Fake News Detection Challenge
 
 Welcome to the **GNN-based Fake News Detection Challenge**! This competition focuses on detecting fake news propagation on Twitter using Graph Neural Networks (GNNs). The task is based on the **User Preference-aware Fake News Detection (UPFD)** framework.
+**[🏆 View Live Leaderboard](https://github.com/TugaAhmed/Open-GNN-Mini-Competition-/leaderboard.html)**
 
 Participants are asked to improve the baseline GNN model by including **user profile features** in addition to existing text embeddings.
 
@@ -10,21 +11,28 @@ Participants are asked to improve the baseline GNN model by including **user pro
 ## Repository Structure
 
 ```text
-gnn-challenge/
+Open-GNN-Mini-Competition/
 ├── data/
-│   ├── train.csv
-│   ├── test.csv
-│   ├── gos_id_time_mapping.pkl
-│   ├── gos_id_twitter_mapping.pkl
-│   ├── gos_news_list.txt
-│   └── ... (other dataset files)
+│   ├── gossipcop
+│   ├── metadata
+│   ├── 
+│   ├── 
+│   ├── 
+│   └── 
 ├── submissions/
 │   └── sample_submission.csv
-├── starter_code/
-│   ├── baseline.py
-│   └── requirements.txt
+├── models/
+│   ├── saved_model.model
+│   └── 
 ├── scoring_script.py
-├── update_leaderboard.py
+├── dataloader.py
+├── evaluate.py
+├── leaderboard.html
+├── leaderboard.json
+├── model.py
+├── test.py
+├── train.py
+├── requirements.txt
 ├── README.md
 └── LICENSE
 ```
@@ -35,6 +43,7 @@ gnn-challenge/
 ## 🗂 Dataset
 
 We use the **GossipCop** and **Politifact** datasets, which contain Twitter news propagation graphs. Each graph represents a news article as the **root node**, and the users who retweeted the news as **child nodes**.
+You can download the data from this link : https://drive.google.com/drive/folders/1OslTX91kLEYIi2WBnwuFtXsVz5SS_XeR
 
 ### Node Features
 
@@ -67,7 +76,7 @@ We use the **GossipCop** and **Politifact** datasets, which contain Twitter news
 
 ## ⚡ Baseline Model
 
-The baseline GNN is implemented in `starter_code/baseline.py`. It supports:
+The baseline GNN is implemented in `model.py`. It supports:
 
 - Graph Convolutional Network (GCN)
 - Graph Attention Network (GAT)
@@ -92,6 +101,9 @@ cd gnn-challenge
 ``` bash
 pip install -r requirements.txt
 ```
+### 3. Download dataset from the link above and place the unzpied data inside `data` folder
+### 4. After creating your model, run `test.py` that will generate `sumbission.csv` 
+
 ### Submission Workflow
 * Fork the repo and add your submission CSV under submissions/
 * Create a pull request
